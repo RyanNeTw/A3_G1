@@ -7,4 +7,3 @@
 - git clone
 - cd into it
 - composer install
-- cp .env.example .env & cp .env .env.locale

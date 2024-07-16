@@ -20,7 +20,15 @@ final class Version20240716102700 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-
+        $this->addSql('DROP SEQUENCE category_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE product_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE media_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE drinks_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE orders_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE realtime.messages_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE auth.refresh_tokens_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE pgsodium.key_key_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE graphql.seq_schema_version CASCADE');
         $this->addSql('CREATE SEQUENCE drink_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE "order_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE drink (id INT NOT NULL, name VARCHAR(255) NOT NULL, price INT NOT NULL, PRIMARY KEY(id))');
@@ -34,7 +42,33 @@ final class Version20240716102700 extends AbstractMigration
         $this->addSql('ALTER TABLE orders DROP CONSTRAINT fk_e52ffdeef2000aa3');
         $this->addSql('ALTER TABLE orders_drinks DROP CONSTRAINT fk_4b47aad8cffe9ad6');
         $this->addSql('ALTER TABLE orders_drinks DROP CONSTRAINT fk_4b47aad82b4b60fb');
-
+        $this->addSql('DROP TABLE auth.refresh_tokens');
+        $this->addSql('DROP TABLE auth.users');
+        $this->addSql('DROP TABLE storage.s3_multipart_uploads');
+        $this->addSql('DROP TABLE auth.instances');
+        $this->addSql('DROP TABLE auth.sso_domains');
+        $this->addSql('DROP TABLE auth.schema_migrations');
+        $this->addSql('DROP TABLE storage.migrations');
+        $this->addSql('DROP TABLE orders');
+        $this->addSql('DROP TABLE auth.saml_relay_states');
+        $this->addSql('DROP TABLE orders_drinks');
+        $this->addSql('DROP TABLE drinks');
+        $this->addSql('DROP TABLE auth.identities');
+        $this->addSql('DROP TABLE realtime.schema_migrations');
+        $this->addSql('DROP TABLE auth.mfa_challenges');
+        $this->addSql('DROP TABLE storage.objects');
+        $this->addSql('DROP TABLE realtime.subscription');
+        $this->addSql('DROP TABLE auth.sessions');
+        $this->addSql('DROP TABLE auth.mfa_factors');
+        $this->addSql('DROP TABLE auth.mfa_amr_claims');
+        $this->addSql('DROP TABLE storage.buckets');
+        $this->addSql('DROP TABLE auth.saml_providers');
+        $this->addSql('DROP TABLE auth.audit_log_entries');
+        $this->addSql('DROP TABLE realtime.messages');
+        $this->addSql('DROP TABLE auth.sso_providers');
+        $this->addSql('DROP TABLE auth.flow_state');
+        $this->addSql('DROP TABLE storage.s3_multipart_uploads_parts');
+        $this->addSql('DROP TABLE auth.one_time_tokens');
     }
 
     public function down(Schema $schema): void
