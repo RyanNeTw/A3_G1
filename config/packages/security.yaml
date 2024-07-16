@@ -34,6 +34,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path:  ^/api/auth, roles: IS_AUTHENTICATED_ANONYMOUSLY } 
         - { path:  ^/api/orders/\d+/pay, roles: [ROLE_SERVEUR, ROLE_PATRON] }
         - { path:  ^/api/orders/\d+/addDrink, roles: [ROLE_SERVEUR, ROLE_PATRON, ROLE_BARMAN] }
         - { path:  ^/api/orders/\d+/removeDrink/\d+, roles: [ROLE_SERVEUR, ROLE_PATRON, ROLE_BARMAN] }
