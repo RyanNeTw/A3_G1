@@ -7,3 +7,4 @@
 - git clone
 - cd into it
 - composer install
+- php bin/console lexik:jwt:generate-keypair

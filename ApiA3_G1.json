@@ -14,23 +14,62 @@
 					"name": "Create user",
 					"request": {
 						"method": "POST",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"ryan@gmail.com\",\n  \"roles\": [\n    \"ROLE_PATRON\"\n  ],\n  \"plainPassword\": \"password\",\n  \"fullname\": \"Ryan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/users"
 					},
 					"response": []
 				},
 				{
 					"name": "Get Users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MjExNDY0NjUsImV4cCI6MTcyMTE1MDA2NSwicm9sZXMiOlsiUk9MRV9QQVRST04iLCJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJyeWFuQGdtYWlsLmNvbSIsImZ1bGxuYW1lIjoiUnlhbiBUaGUgUGF0cm9uIn0.DN2DBTBQz9mZA4OCpIXAmZeZDonzl1hB5GpPc4q5R9jjRpN-fxUFn4II2p3hx0zA8Z5ITN5XmueeJlhqbhkS27IyHE-R0Qga205vH5H2FZ-0cnxipqsMUFsU9oifs45kOV8T-9yqmiKHMYTgi9H0gR8LIoiJuY7b9VZPzcvVAGKns0sg5vqdYfrV6yIU7JLgcubM3OlQvK-uYGm6-H-2nDkw0VWjsrdtPRWnMZxvQe4yQb2EwxkepqXdVOKSyyGcIFWdtyxROExd1ivm0Qk94HZml180awHIeHZggeUAenBipVcsLy9AkLRpUEEJFA1iTxANEscTgmqfGH7OeVVO-A"
+							}
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": "{{BASE_URL}}/users"
 					},
 					"response": []
 				},
 				{
 					"name": "Get User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{ BEARER_TOKEN }}"
+							}
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -46,9 +85,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{  BASE_URL }}/users/:id",
+							"raw": "{{BASE_URL}}/users/:id",
 							"host": [
-								"{{  BASE_URL }}"
+								"{{BASE_URL}}"
 							],
 							"path": [
 								"users",
@@ -85,9 +124,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{  BASE_URL }}/users/:id",
+							"raw": "{{BASE_URL}}/users/:id",
 							"host": [
-								"{{  BASE_URL }}"
+								"{{BASE_URL}}"
 							],
 							"path": [
 								"users",
@@ -96,7 +135,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "5"
+									"value": ""
 								}
 							]
 						}
@@ -114,55 +153,120 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "{{ BEARER_TOKEN }}"
+								"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MjExMzQ0MTgsImV4cCI6MTcyMTEzODAxOCwicm9sZXMiOlsiUk9MRV9QQVRST04iLCJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJyeWFuQGdtYWlsLmNvbSIsImZ1bGxuYW1lIjoiUnlhbiBUaGUgUGF0cm9uIn0.hQDo0NObF4x7Wx9lN9C7xNm23TRI4_p_SqiXsgJrWtdTjvfLFJWdVaQmehxZAheGF4Ev9GYsxt7hzwTYwaXFf8SoKVVG6g2Ab6er_p2EuoyS8duW4h1_62oRl5X5UqCE4Qpm4aFyeUIEZ7oWxcmbouNc-0STFrDO6ZB26PxxkPsTv_6ogxVknW1TmPw8ltwPRS9x_T8QZSN4omXTCmkob_yLgAVVpdLcKnFlUeEIudOJbHd60gIdqD03DkzOcqZPsdh92qpf7984ZSr1iK2vvMPW1pNP_NaOOu8qz2Jhpu4MyfAmX0X2Nv-L2rWUVf4mvZipDlSNtQCOCW2UXFkD5Q"
 							}
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"table_number\": 1,\n  \"waiter_id\": \"api/users/5\",\n  \"barman_id\":  \"api/users/5\",\n  \"orderStatus\": \"Ready\"\n}",
+							"raw": "{\n  \"table_number\": 1,\n  \"waiter_id\": \"api/users/5\",\n  \"barman_id\":  \"api/users/5\",\n  \"orderStatus\": \"Ready\",\n  \"order_drinks\": [\"api/drinks/2\", \"api/drinks/3\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{  BASE_URL }}/orders"
+						"url": "{{BASE_URL}}/orders"
 					},
 					"response": []
 				},
 				{
 					"name": "Get Orders",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MjExMzk0NTYsImV4cCI6MTcyMTE0MzA1Niwicm9sZXMiOlsiUk9MRV9QQVRST04iLCJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJyeWFuQGdtYWlsLmNvbSIsImZ1bGxuYW1lIjoiUnlhbiBUaGUgUGF0cm9uIn0.ikywiCpZf0kpqOLo7DD3ihCxKUb4D0IIzOZ9kpkA8YU2gg-9pS_GjvxMaCdROTIhE3maKR4BkICeixVy78AnUqoqfg5Wb9G3ZTqHc4ikIcWJBSKS7OahtWGXR-PfSompxrOb2Eqv8DLiYcGVhjM7YH9ETtaUYQniSFnjdyJ5P4UdudGFu-lEN5ODuHcUx_KrRTRfPwYEtSybATJnnEiYdj6VG9pHT1pgo7AbQkzC-yQtyal1A8SeX8Gkpo0YQSWI3moi_PAmYmJ-OWB4h8K6gfEzecedHu5pTxRqB30zkSiJTuHvDvQiwhOtGsmElQAqgpH2Tza545qakz6ytKda0A"
+							}
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/orders",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "created_at[before]",
+									"value": "2000-01-01",
+									"disabled": true
+								},
+								{
+									"key": "created_at[after]",
+									"value": "2000-01-01",
+									"disabled": true
+								},
+								{
+									"key": "created_at[strictly_before]",
+									"value": "2000-01-01",
+									"disabled": true
+								},
+								{
+									"key": "created_at[strictly_after]",
+									"value": "2000-01-01",
+									"disabled": true
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Order",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{ BEARER_TOKEN }}"
+							}
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/orders/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Add Drinks to Order",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MjExNDY0NjUsImV4cCI6MTcyMTE1MDA2NSwicm9sZXMiOlsiUk9MRV9QQVRST04iLCJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJyeWFuQGdtYWlsLmNvbSIsImZ1bGxuYW1lIjoiUnlhbiBUaGUgUGF0cm9uIn0.DN2DBTBQz9mZA4OCpIXAmZeZDonzl1hB5GpPc4q5R9jjRpN-fxUFn4II2p3hx0zA8Z5ITN5XmueeJlhqbhkS27IyHE-R0Qga205vH5H2FZ-0cnxipqsMUFsU9oifs45kOV8T-9yqmiKHMYTgi9H0gR8LIoiJuY7b9VZPzcvVAGKns0sg5vqdYfrV6yIU7JLgcubM3OlQvK-uYGm6-H-2nDkw0VWjsrdtPRWnMZxvQe4yQb2EwxkepqXdVOKSyyGcIFWdtyxROExd1ivm0Qk94HZml180awHIeHZggeUAenBipVcsLy9AkLRpUEEJFA1iTxANEscTgmqfGH7OeVVO-A"
+							}
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    1, 2, 3\n]",
+							"raw": "[\n    2, 3, 4\n]",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8000/api/orders/8/addDrink"
+						"url": "{{BASE_URL}}/orders/4/addDrink"
 					},
 					"response": []
 				},
@@ -192,33 +296,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{  BASE_URL }}/orders/:id",
+							"raw": "{{BASE_URL}}/orders/:id",
 							"host": [
-								"{{  BASE_URL }}"
-							],
-							"path": [
-								"orders",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "4"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Order",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{  BASE_URL }}/orders/:id",
-							"host": [
-								"{{  BASE_URL }}"
+								"{{BASE_URL}}"
 							],
 							"path": [
 								"orders",
@@ -235,14 +315,44 @@
 					"response": []
 				},
 				{
+					"name": "Delete Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{ BEARER_TOKEN }}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/orders/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Remove Drink from Order",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{  BASE_URL }}/orders/:{orderId}/removeDrink/:{drinkId}",
+							"raw": "{{BASE_URL}}/orders/:{orderId}/removeDrink/:{drinkId}",
 							"host": [
-								"{{  BASE_URL }}"
+								"{{BASE_URL}}"
 							],
 							"path": [
 								"orders",
@@ -257,7 +367,7 @@
 								},
 								{
 									"key": "{drinkId}",
-									"value": "4"
+									"value": ""
 								}
 							]
 						}
@@ -285,9 +395,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{  BASE_URL }}/orders/:id",
+							"raw": "{{BASE_URL}}/orders/:id",
 							"host": [
-								"{{  BASE_URL }}"
+								"{{BASE_URL}}"
 							],
 							"path": [
 								"orders",
@@ -306,8 +416,31 @@
 				{
 					"name": "Make Order Paid",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{ BEARER_TOKEN }}"
+							}
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/orders/:id/pay",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orders",
+								":id",
+								"pay"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -320,7 +453,8 @@
 					"name": "Get Drinks",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": "{{BASE_URL}}/drinks"
 					},
 					"response": []
 				},
@@ -328,7 +462,23 @@
 					"name": "Get Drink",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/drinks/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"drinks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -344,9 +494,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{  BASE_URL }}/drinks/:id",
+							"raw": "{{BASE_URL}}/drinks/:id",
 							"host": [
-								"{{  BASE_URL }}"
+								"{{BASE_URL}}"
 							],
 							"path": [
 								"drinks",
@@ -355,7 +505,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "1"
 								}
 							]
 						}
@@ -373,10 +523,19 @@
 						},
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Coca\",\n    \"price\": 43\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{  BASE_URL }}/drinks/:id",
+							"raw": "{{BASE_URL}}/drinks/:id",
 							"host": [
-								"{{  BASE_URL }}"
+								"{{BASE_URL}}"
 							],
 							"path": [
 								"drinks",
@@ -385,7 +544,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "2"
 								}
 							]
 						}
@@ -395,18 +554,24 @@
 				{
 					"name": "Create Drink",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Drink\",\n    \"price\": 12\n}",
+							"raw": "{\n    \"name\": \"Fanta\",\n    \"price\": 3,\n    \"picture\": \"api/medias/1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{  BASE_URL }}/drinks"
+						"url": "{{BASE_URL}}/drinks"
 					},
 					"response": []
 				}
@@ -429,7 +594,31 @@
 								}
 							}
 						},
-						"url": "{{  BASE_URL }}/auth"
+						"url": "{{BASE_URL}}/auth"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Media",
+			"item": [
+				{
+					"name": "Create Media",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": "{{BASE_URL}}/medias"
 					},
 					"response": []
 				}
@@ -437,10 +626,8 @@
 		}
 	],
 	"auth": {
-		"type": "bearer",
-		"bearer": {
-			"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MjExMzQ0MTgsImV4cCI6MTcyMTEzODAxOCwicm9sZXMiOlsiUk9MRV9QQVRST04iLCJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJyeWFuQGdtYWlsLmNvbSIsImZ1bGxuYW1lIjoiUnlhbiBUaGUgUGF0cm9uIn0.hQDo0NObF4x7Wx9lN9C7xNm23TRI4_p_SqiXsgJrWtdTjvfLFJWdVaQmehxZAheGF4Ev9GYsxt7hzwTYwaXFf8SoKVVG6g2Ab6er_p2EuoyS8duW4h1_62oRl5X5UqCE4Qpm4aFyeUIEZ7oWxcmbouNc-0STFrDO6ZB26PxxkPsTv_6ogxVknW1TmPw8ltwPRS9x_T8QZSN4omXTCmkob_yLgAVVpdLcKnFlUeEIudOJbHd60gIdqD03DkzOcqZPsdh92qpf7984ZSr1iK2vvMPW1pNP_NaOOu8qz2Jhpu4MyfAmX0X2Nv-L2rWUVf4mvZipDlSNtQCOCW2UXFkD5Q"
-		}
+		"type": "inherit",
+		"inherit": {}
 	},
 	"event": [
 		{
@@ -472,9 +659,9 @@
 			"value": "https://127.0.0.1:8000/api"
 		},
 		{
-			"key": "BEARER_TOKEN",
-			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MjExMzQ0MTgsImV4cCI6MTcyMTEzODAxOCwicm9sZXMiOlsiUk9MRV9QQVRST04iLCJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJyeWFuQGdtYWlsLmNvbSIsImZ1bGxuYW1lIjoiUnlhbiBUaGUgUGF0cm9uIn0.hQDo0NObF4x7Wx9lN9C7xNm23TRI4_p_SqiXsgJrWtdTjvfLFJWdVaQmehxZAheGF4Ev9GYsxt7hzwTYwaXFf8SoKVVG6g2Ab6er_p2EuoyS8duW4h1_62oRl5X5UqCE4Qpm4aFyeUIEZ7oWxcmbouNc-0STFrDO6ZB26PxxkPsTv_6ogxVknW1TmPw8ltwPRS9x_T8QZSN4omXTCmkob_yLgAVVpdLcKnFlUeEIudOJbHd60gIdqD03DkzOcqZPsdh92qpf7984ZSr1iK2vvMPW1pNP_NaOOu8qz2Jhpu4MyfAmX0X2Nv-L2rWUVf4mvZipDlSNtQCOCW2UXFkD5Q",
-			"type": "string"
+			"value": "",
+			"type": "string",
+			"disabled": true
 		}
 	]
 }
