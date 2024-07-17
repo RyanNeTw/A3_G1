@@ -24,6 +24,7 @@ use ApiPlatform\Metadata\Delete;
         new Put(security: "is_granted('ROLE_PATRON') or is_granted('ROLE_BARMAN') or object == user", securityMessage: 'You are not allowed to edit this order'),
         new Delete(security: "is_granted('ROLE_PATRON') or is_granted('ROLE_BARMAN') or object == user", securityMessage: 'You are not allowed to delete this order'),
     ],
+    forceEager: false
 )]
 #[ORM\Entity(repositoryClass: DrinkRepository::class)]
 class Drink
@@ -42,6 +43,11 @@ class Drink
     #[ORM\Column]
     private ?int $price = null;
 
+    #[Groups(['read', 'write'])]
+    #[ORM\OneToOne(inversedBy: 'drink', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Media $picture = null;
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -67,6 +73,18 @@ class Drink
     public function setPrice(int $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getPicture(): ?Media
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(Media $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }
